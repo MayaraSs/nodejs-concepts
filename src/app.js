@@ -53,7 +53,7 @@ app.put("/repositories/:id", (request, response) => {
   );
 
   if (repositoriesIndex < 0) {
-    return response.status(400).json({ error: "Repositorie not found" });
+    reply400(response);
   }
 
   const { likes } = repositories[repositoriesIndex];
@@ -82,7 +82,6 @@ app.delete("/repositories/:id", (request, response) => {
   if (repositoriesIndex < 0) {
     reply400(response);
   }
-
   repositories.splice(repositoriesIndex, 1);
   return response.status(204).send();
 });
@@ -99,9 +98,8 @@ app.post("/repositories/:id/like", (request, response) => {
   );
 
   if (repositoriesIndex < 0) {
-    return response.status(400).json({ error: "Repositorie not found" });
+    reply400(response);
   }
-
   const { likes, title, url } = repositories[repositoriesIndex];
 
   newRepositorie = updateRepositorie(repositoriesIndex, {
